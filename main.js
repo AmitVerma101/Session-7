@@ -148,7 +148,15 @@ app.get("/result",(req,res)=>{
     console.log(req.session);
     console.log("hello");
     console.log("I am working in the result page");
-    res.render("first.ejs",{email:req.session.email,arr:[{first:"This is the first thing"},{first:"This is the second thing"},{first:"This is the third thing"}]});
+    fs.readFile('./data.json',(err,data)=>{
+      if(err){
+        res.end("Fail to read the file")
+      }
+      else {
+        res.render("first.ejs",{email:req.session.email,arr:JSON.parse(data)});
+      }
+    })
+   
   }
    
        
